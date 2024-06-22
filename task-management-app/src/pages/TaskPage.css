@@ -1,7 +1,14 @@
-.task-header {
-  margin-bottom: 20px;
-  text-align: center;
+.task-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
   color: #fff;
+}
+
+.task-header {
+  text-align: left;
+
+  
 }
 
 .task-header h1 {
@@ -39,19 +46,53 @@
 }
 
 .task-columns {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
 }
 
 .task-column {
   background-color: #3a3a3a;
   border-radius: 8px;
   padding: 10px;
-  width: 22%;
 }
 
 .task-column h2 {
   margin-bottom: 10px;
   text-align: center;
   color: #fff;
+}
+
+.my-tasks {
+  margin-bottom: 20px;
+}
+
+.my-tasks h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.my-tasks p {
+  margin-bottom: 10px;
+}
+
+.task-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .task-header h1 {
+    font-size: 2em;
+  }
+
+  .task-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .task-columns {
+    grid-template-columns: 1fr;
+  }
 }

@@ -6,7 +6,11 @@ const TaskList = () => {
   const { tasks, deleteTask, editTask } = useContext(TaskContext);
 
   const handleEditClick = (task) => {
-    // Implement the logic to handle edit click, e.g., show edit form
+    if (canManageTask(task)) {
+      // Implement the logic to handle edit click, e.g., show edit form
+    } else {
+      alert("You don't have permission to edit this task.");
+    }
   };
 
   const handleDeleteClick = (taskId) => {
