@@ -1,0 +1,64 @@
+.task-card {
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px 0;
+  transition: transform 0.3s ease;
+  color: #fff;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+}
+
+.task-card h3 {
+  margin-bottom: 10px;
+}
+
+.task-card p {
+  margin-bottom: 5px;
+}
+
+.progress-bar {
+  height: 5px;
+  background-color: #007bff;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.task-footer button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-footer button:hover {
+  background-color: #0056b3;
+}
+
+/* Status Specific Styles */
+.draft {
+  border-left: 4px solid #ccc;
+}
+
+.in-progress {
+  border-left: 4px solid #007bff;
+}
+
+.editing {
+  border-left: 4px solid #ffc107;
+}
+
+.done {
+  border-left: 4px solid #28a745;
+}
