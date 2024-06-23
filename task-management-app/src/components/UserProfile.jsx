@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Avatar } from "@mui/material";
 
 const UserProfile = ({
@@ -11,6 +11,13 @@ const UserProfile = ({
   handleRoleSubmit,
   errorMessage,
 }) => {
+  const [selectedRole, setSelectedRole] = useState(role);
+
+  const onRoleChange = (e) => {
+    setSelectedRole(e.target.value);
+    handleRoleChange(e);
+  };
+
   return (
     <div className="right-section">
       <Box
@@ -35,28 +42,25 @@ const UserProfile = ({
       >
         <select
           size="small"
-          value={role}
-          onChange={handleRoleChange}
+          value={selectedRole}
+          onChange={onRoleChange}
           className="role-dropdown"
-          style={{ width: "200px", marginTop: "1rem" }} // Update to use style prop
+          style={{ width: "200px", marginTop: "1rem" }}
         >
           <option value="Owner">Owner</option>
           <option value="Admin">Admin</option>
         </select>
-        {role === "Admin" && (
+        {selectedRole === "Admin" && (
           <input
             type="password"
             size="small"
             value={adminPassword}
             onChange={(e) => setAdminPassword(e.target.value)}
             placeholder="Password"
-            style={{ width: "200px", marginTop: "1rem" }} // Update to use style prop
+            style={{ width: "200px", marginTop: "1rem" }}
           />
         )}
-        <button
-          onClick={handleRoleSubmit}
-          style={{ marginTop: "2rem" }} // Update to use style prop
-        >
+        <button onClick={handleRoleSubmit} style={{ marginTop: "2rem" }}>
           Change Role
         </button>
         {errorMessage && (

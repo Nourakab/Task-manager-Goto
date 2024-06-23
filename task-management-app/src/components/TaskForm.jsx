@@ -7,9 +7,9 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
   const [title, setTitle] = useState(initialTask.title || "");
   const [description, setDescription] = useState(initialTask.description || "");
   const [endDate, setEndDate] = useState(initialTask.endDate || "");
-  const isCreating = !initialTask.id; // Determine if creating a new task
+  const isCreating = !initialTask.id;
 
-  const today = new Date().toISOString().split("T")[0]; // Define the today variable
+  const today = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     if (initialTask) {
@@ -21,17 +21,15 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Form submitted with values:", { title, description, endDate });
     onSubmit({
       ...initialTask,
       title,
       description,
       endDate,
       userId: user.userId,
-      status: initialTask.status || "Pending", // Preserve status for editing
+      status: initialTask.status || "Pending",
     });
-    setTitle("");
-    setDescription("");
-    setEndDate("");
   };
 
   return (
@@ -40,13 +38,19 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
       <input
         type="text"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => {
+          setTitle(e.target.value);
+          console.log("Title updated:", e.target.value);
+        }}
         placeholder="Title"
         required
       />
       <textarea
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => {
+          setDescription(e.target.value);
+          console.log("Description updated:", e.target.value);
+        }}
         placeholder="Description"
         required
       ></textarea>
@@ -54,8 +58,12 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
         <input
           type="date"
           value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-          min={today} // Set the minimum date to today to prevent user from selecting a past date
+          onChange={(e) => {
+            setEndDate(e.target.value);
+            console.log("End Date updated:", e.target.value);
+          }}
+          min={today}
+          placeholder="End Date"
           required
         />
       </div>
