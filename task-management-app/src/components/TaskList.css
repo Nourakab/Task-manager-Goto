@@ -1,9 +1,9 @@
 .task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-  }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px;
+  padding: 20px;
+}
   
   .task-card {
     background-color: #ffffff;
@@ -15,7 +15,9 @@
     gap: 10px;
     color: rgb(97, 94, 97); 
     font-family: 'Afacad', sans-serif; 
-    
+    align-self: auto;
+    justify-content: space-between;
+    height: 100%; /* Make sure it takes full height within the grid */
   }
 
   .task-card input,
@@ -35,7 +37,13 @@
   
   .task-card p {
     margin: 5px 0;
+    flex-grow: 1; /* Ensure the content grows to take available space */
 
+  }
+
+  .task-footer {
+    display: flex;
+    justify-content: space-between;
   }
   
   .task-status {
@@ -50,7 +58,7 @@
     color: #f58d16;
   }
   
-  .status-icon.completed {
+  .status-icon-checked {
     color: green;
   }
   

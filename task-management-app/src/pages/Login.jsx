@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
-  const { setUser } = useContext(TaskContext);
+  const { setUser, users } = useContext(TaskContext);
   const [role, setRole] = useState("Owner");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,14 +70,31 @@ const Login = () => {
       return;
     }
 
-    if (role === "Admin" && currentPassword !== "1234") {
+    // Match the password with the correct password from the context
+    if (role === "Admin" && currentPassword !== "AdminPass1234&") {
       alert("Incorrect password for Admin role");
       return;
     }
 
     setErrorMessage(""); // Clear any previous error messages
-    setUser({ role, userId: role === "Admin" ? 0 : 1 });
-    navigate("/tasks");
+
+    // Ensure users array is defined and contains user objects
+    if (users && users.length > 0) {
+      const loggedInUser = users.find(
+        (u) =>
+          u.role === role && u.email === email && u.password === currentPassword
+      );
+
+      if (!loggedInUser) {
+        setErrorMessage("Invalid email, password, or role selection");
+        return;
+      }
+
+      setUser(loggedInUser);
+      navigate("/tasks");
+    } else {
+      setErrorMessage("User data not found. Please check the TaskContext.");
+    }
   };
 
   return (

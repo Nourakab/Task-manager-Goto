@@ -24,13 +24,14 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
       description,
       endDate,
       userId: user.userId,
-      status: "Pending",
+      status: initialTask.status || "Pending", // Preserve status for editing
     });
     setTitle("");
     setDescription("");
     setEndDate("");
   };
 
+  // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
 
   return (
@@ -54,7 +55,7 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
-          min={today}
+          min={today} // Set the minimum date to today to prevent user from selecting a past date
           required
         />
       </div>

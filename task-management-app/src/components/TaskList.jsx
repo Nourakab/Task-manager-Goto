@@ -9,8 +9,8 @@ const TaskList = ({
   onDeleteClick,
   onMarkAsCompleted,
   onSaveEdit,
+  editingTaskId,
 }) => {
-  const [editingTaskId, setEditingTaskId] = useState(null);
   const [editedTask, setEditedTask] = useState({
     title: "",
     description: "",
@@ -18,24 +18,23 @@ const TaskList = ({
   });
 
   const handleEditClick = (task) => {
-    setEditingTaskId(task.id);
     setEditedTask({
       title: task.title,
       description: task.description,
       endDate: task.endDate,
     });
+    onEditClick(task);
   };
 
   const handleSaveClick = (taskId) => {
-    onSaveEdit({ ...editedTask, id: taskId });
-    setEditingTaskId(null);
+    onSaveEdit(taskId, editedTask);
   };
 
   return (
     <div className="task-list">
       {tasks.map((task) => (
         <div key={task.id} className={`task-card ${task.status.toLowerCase()}`}>
-          {editingTaskId === task.id ? (
+          {editingTaskId === task.id ? ( // Check if the current task is being edited
             <>
               <input
                 type="text"
