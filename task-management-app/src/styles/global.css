@@ -26,16 +26,19 @@ body {
  
   background: linear-gradient(135deg, #b40dd1, #680dd1 );
   color: #e086f0;
+  display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 /* Utility Classes */
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 15px;
+  overflow: hidden; /* Prevent overflow issues */
 }
-
 .flex {
   display: flex;
 }

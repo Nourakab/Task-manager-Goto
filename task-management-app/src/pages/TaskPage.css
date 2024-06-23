@@ -1,18 +1,103 @@
+
 .task-page {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 20px;
-  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh; /* Ensure it takes full height */
+  padding: 20px; /* Add some padding for better spacing */
+  width: 100%;
+ 
 }
 
 .task-header {
   text-align: left;
-
-  
+  width: 100%;
+  padding: 30px;
 }
 
 .task-header h1 {
   font-size: 2.5em;
+}
+
+.user-role {
+  font-size: 1em;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #680dd1;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.no-tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  color: #333;
+  border: 2px solid white; /* White border */
+  border-radius: 20px; /* Rounded corners */
+  padding: 20px; /* Padding inside the border */
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+  position: relative; /* Ensure the button is positioned correctly */
+}
+
+.no-tasks img {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 80%; /* Make the image circular */
+}
+
+.no-tasks h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.no-tasks p {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.add-task-button {
+  background: linear-gradient(135deg, #b40dd1, #680dd1);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-taskList-button {
+  margin-top:20px;
+  background:  rgb(105, 6, 219);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-task-button:hover {
+  background-color: #9f5edc;
 }
 
 .task-form {
@@ -21,40 +106,19 @@
   margin-bottom: 20px;
 }
 
-.task-form input, .task-form textarea, .task-form select, .task-form button {
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.task-form input, .task-form textarea, .task-form select {
-  background-color: #444;
-  color: #fff;
-  border: none;
-}
-
-.task-form button {
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  border: none;
-}
-
-.task-form button:hover {
-  background-color: #0056b3;
-}
-
 .task-columns {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between; 
 }
 
 .task-column {
   background-color: #3a3a3a;
   border-radius: 8px;
   padding: 10px;
+  margin: 10px;
+  min-width: 250px; /* Ensure min width for columns */
 }
 
 .task-column h2 {
