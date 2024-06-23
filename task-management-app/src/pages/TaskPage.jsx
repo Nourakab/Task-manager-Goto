@@ -2,16 +2,17 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { TaskContext } from "../context/TaskContext";
 import TaskList from "../components/TaskList";
 import TaskForm from "../components/TaskForm";
+import TaskCard from "../components/TaskCard";
 import Modal from "../components/Modal";
-import "./TaskPage.css";
+import SearchBar from "../components/SearchBar";
+import SortDropdown from "../components/SortDropdown";
+import UserProfile from "../components/UserProfile";
 import noTaskImage from "../assets/images/noTask.jpg";
+import "./TaskPage.css";
 
 const TaskPage = () => {
-  const { tasks, user, addTask, deleteTask, editTask, users } =
+  const { tasks, user, addTask, deleteTask, editTask, setUser, users } =
     useContext(TaskContext);
-  const userTasks = tasks.filter(
-    (task) => user.role === "Admin" || task.userId === user.userId
-  );
   const [showForm, setShowForm] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [initialTask, setInitialTask] = useState({});
@@ -19,6 +20,25 @@ const TaskPage = () => {
   const [adminPassword, setAdminPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const formRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortCriteria, setSortCriteria] = useState("title");
+
+  const sortedTasks = [...tasks].sort((a, b) => {
+    if (sortCriteria === "title") {
+      return a.title.localeCompare(b.title);
+    } else if (sortCriteria === "endDate") {
+      return new Date(a.endDate) - new Date(b.endDate);
+    } else if (sortCriteria === "status") {
+      return a.status.localeCompare(b.status);
+    }
+    return 0;
+  });
+
+  const userTasks = sortedTasks.filter(
+    (task) =>
+      (user.role === "Admin" || task.userId === user.userId) &&
+      task.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleAddTaskClick = () => {
     setShowForm(true);
@@ -40,17 +60,17 @@ const TaskPage = () => {
     setEditingTaskId(task.id);
   };
 
+  const handleSaveEdit = (taskId, editedTask) => {
+    editTask({ ...editedTask, id: taskId });
+    setEditingTaskId(null);
+  };
+
   const handleDeleteClick = (taskId) => {
     deleteTask(taskId);
   };
 
   const handleMarkAsCompleted = (task) => {
     editTask({ ...task, status: "Completed" });
-  };
-
-  const handleSaveEdit = (taskId, editedTask) => {
-    editTask({ ...editedTask, id: taskId });
-    setEditingTaskId(null);
   };
 
   const handleClickOutside = (event) => {
@@ -74,8 +94,8 @@ const TaskPage = () => {
   const handleRoleChange = (e) => {
     const selectedRole = e.target.value;
     if (selectedRole === "Admin") {
-      setAdminPassword(""); // Clear previous password
-      setErrorMessage(""); // Clear previous error message
+      setAdminPassword("");
+      setErrorMessage("");
     }
     setRole(selectedRole);
   };
@@ -97,57 +117,58 @@ const TaskPage = () => {
   };
 
   return (
-    <div className="task-page container">
-      <header className="task-header">
-        <h1>Task Management</h1>
-      </header>
-      <p className="user-role">Role: {user.role}</p>
-      <div className="role-selector">
-        <label>
-          Select Role:
-          <select value={role} onChange={handleRoleChange}>
-            <option value="Owner">Owner</option>
-            <option value="Admin">Admin</option>
-          </select>
-        </label>
-        {role === "Admin" && (
-          <label>
-            Admin Password:
-            <input
-              type="password"
-              value={adminPassword}
-              onChange={(e) => setAdminPassword(e.target.value)}
-              placeholder="Password"
-            />
-          </label>
-        )}
-        <button onClick={handleRoleSubmit}>Change Role</button>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </div>
-      {userTasks.length === 0 ? (
-        <div className="no-tasks" ref={formRef}>
-          <img src={noTaskImage} alt="No tasks" />
-          <h2>There are no tasks</h2>
-          <p>Select to create a new task</p>
-          <button className="add-task-button" onClick={handleAddTaskClick}>
-            +
-          </button>
-        </div>
-      ) : (
-        <>
-          <TaskList
-            tasks={userTasks}
-            onEditClick={handleEditClick}
-            onDeleteClick={handleDeleteClick}
-            onMarkAsCompleted={handleMarkAsCompleted}
-            onSaveEdit={handleSaveEdit}
-            editingTaskId={editingTaskId}
+    <div className="task-page">
+      <div className="left-section">
+        <header className="task-header">
+          <h1>Task Management</h1>
+          <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
           />
-          <button className="add-task-button" onClick={handleAddTaskClick}>
-            +
-          </button>
-        </>
-      )}
+          <SortDropdown
+            sortCriteria={sortCriteria}
+            setSortCriteria={setSortCriteria}
+          />
+        </header>
+        <div className="task-content">
+          {userTasks.length === 0 ? (
+            <div className="no-tasks" ref={formRef}>
+              <img src={noTaskImage} alt="No tasks" />
+              <div>There are no tasks</div>
+              <div>Select to create a new task</div>
+              <button onClick={handleAddTaskClick} className="add-task-button">
+                +
+              </button>
+            </div>
+          ) : (
+            <div className="task-list">
+              {userTasks.map((task) => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  handleEditClick={handleEditClick}
+                  handleDeleteClick={handleDeleteClick}
+                  handleMarkAsCompleted={handleMarkAsCompleted}
+                  handleSaveEdit={handleSaveEdit} // Pass handleSaveEdit to TaskCard
+                />
+              ))}
+              <button onClick={handleAddTaskClick} className="add-task-button">
+                +
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      <UserProfile
+        user={user}
+        role={role}
+        setRole={setRole}
+        adminPassword={adminPassword}
+        setAdminPassword={setAdminPassword}
+        handleRoleChange={handleRoleChange}
+        handleRoleSubmit={handleRoleSubmit}
+        errorMessage={errorMessage}
+      />
       {showForm && (
         <Modal show={showForm} onClose={() => setShowForm(false)}>
           <div ref={formRef}>

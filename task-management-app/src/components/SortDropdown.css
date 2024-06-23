@@ -1,0 +1,16 @@
+.sort-dropdown {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .sort-menu {
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sort-dropdown {
+    width: 100%;
+  }
+  

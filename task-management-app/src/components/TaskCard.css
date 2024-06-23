@@ -1,4 +1,7 @@
 
+.status-overdue {
+  color: red;
+}
 
 .progress-bar {
   height: 5px;

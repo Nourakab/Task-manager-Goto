@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GrInProgress } from "react-icons/gr";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import "./TaskList.css";
@@ -26,6 +26,15 @@ const TaskList = ({
     onEditClick(task);
   };
 
+  useEffect(() => {
+    if (editingTaskId) {
+      const taskToEdit = tasks.find((task) => task.id === editingTaskId);
+      if (taskToEdit) {
+        setEditedTask(taskToEdit);
+      }
+    }
+  }, [editingTaskId, tasks]);
+
   const handleSaveClick = (taskId) => {
     onSaveEdit(taskId, editedTask);
   };
@@ -33,8 +42,13 @@ const TaskList = ({
   return (
     <div className="task-list">
       {tasks.map((task) => (
-        <div key={task.id} className={`task-card ${task.status.toLowerCase()}`}>
-          {editingTaskId === task.id ? ( // Check if the current task is being edited
+        <div
+          key={task.id}
+          className={`task-card ${task.status.toLowerCase()} ${
+            task.status === "Overdue" ? "overdue" : ""
+          }`}
+        >
+          {editingTaskId === task.id ? (
             <>
               <input
                 type="text"
@@ -63,18 +77,20 @@ const TaskList = ({
               <h3>{task.title}</h3>
               <p>{task.description}</p>
               <p>End Date: {task.endDate}</p>
-              <p>
+              <p className={`status ${task.status.toLowerCase()}`}>
                 Status:{" "}
                 {task.status === "Pending" ? (
                   <GrInProgress className="status-icon" />
-                ) : (
+                ) : task.status === "Completed" ? (
                   <IoIosCheckmarkCircle className="status-icon" />
+                ) : (
+                  <span className="status-overdue">Overdue</span>
                 )}
               </p>
               <div className="task-footer">
                 <button onClick={() => handleEditClick(task)}>Edit</button>
                 <button onClick={() => onDeleteClick(task.id)}>Delete</button>
-                {task.status === "Pending" && (
+                {task.status !== "Completed" && (
                   <button onClick={() => onMarkAsCompleted(task)}>
                     <IoIosCheckmarkCircle /> Mark as Completed
                   </button>

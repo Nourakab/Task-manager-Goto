@@ -1,33 +1,79 @@
-import React, { useContext } from "react";
-import { TaskContext } from "../context/TaskContext";
-import "./TaskCard.css";
+import React, { useState } from "react";
 
-const TaskCard = ({ task, onEditClick, onDeleteClick }) => {
-  const { deleteTask, canManageTask } = useContext(TaskContext);
+const TaskCard = ({
+  task,
+  handleEditClick,
+  handleDeleteClick,
+  handleMarkAsCompleted,
+  handleSaveEdit,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTask, setEditedTask] = useState(task);
 
-  const handleDeleteClick = () => {
-    if (canManageTask(task)) {
-      deleteTask(task.id);
-    } else {
-      alert("You don't have permission to delete this task.");
-    }
+  const onSaveEdit = () => {
+    const today = new Date().toISOString().split("T")[0];
+    const updatedTask = {
+      ...editedTask,
+      status: editedTask.endDate < today ? "Overdue" : editedTask.status,
+    };
+    handleSaveEdit(task.id, updatedTask);
+    setIsEditing(false);
   };
 
   return (
-    <div className={`task-card ${task.status.toLowerCase()}`}>
-      <h3>{task.title}</h3>
-      <p>{task.description}</p>
-      <p>End Date: {task.endDate}</p>
-      <p>Status: {task.status}</p>
-      <div
-        className="progress-bar"
-        style={{ width: `${task.progress}%` }}
-      ></div>
-      {canManageTask(task) && (
-        <div className="task-footer">
-          <button onClick={onEditClick}>Edit</button>
-          <button onClick={handleDeleteClick}>Delete</button>
-        </div>
+    <div className="task-card">
+      {isEditing ? (
+        <>
+          <input
+            type="text"
+            value={editedTask.title}
+            onChange={(e) =>
+              setEditedTask({ ...editedTask, title: e.target.value })
+            }
+            placeholder="Title"
+            required
+          />
+          <input
+            type="text"
+            value={editedTask.description}
+            onChange={(e) =>
+              setEditedTask({ ...editedTask, description: e.target.value })
+            }
+            placeholder="Description"
+            required
+          />
+          <input
+            type="date"
+            value={editedTask.endDate}
+            onChange={(e) =>
+              setEditedTask({ ...editedTask, endDate: e.target.value })
+            }
+            required
+          />
+          <button onClick={onSaveEdit}>Save</button>
+          <button onClick={() => setIsEditing(false)}>Cancel</button>
+        </>
+      ) : (
+        <>
+          <div>{task.title}</div>
+          <div>{task.description}</div>
+          <div>End Date: {task.endDate}</div>
+          <div className={task.status === "Overdue" ? "status-overdue" : ""}>
+            Status:{" "}
+            {task.status === "Pending"
+              ? "⏳"
+              : task.status === "Overdue"
+              ? "Overdue❗"
+              : "✔️"}
+          </div>
+          <button onClick={() => setIsEditing(true)}>Edit</button>
+          <button onClick={() => handleDeleteClick(task.id)}>Delete</button>
+          {task.status === "Pending" && (
+            <button onClick={() => handleMarkAsCompleted(task)}>
+              Mark as Completed
+            </button>
+          )}
+        </>
       )}
     </div>
   );

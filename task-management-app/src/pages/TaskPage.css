@@ -1,13 +1,30 @@
 
 .task-page {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
   min-height: 100vh; /* Ensure it takes full height */
   padding: 20px; /* Add some padding for better spacing */
   width: 100%;
+  
  
 }
+
+.left-section {
+  flex: 3;
+  width: 80%;
+  flex-direction: column;
+  width: 80%;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+}
+
 
 .task-header {
   text-align: left;
@@ -19,6 +36,12 @@
   font-size: 2.5em;
 }
 
+.sort-menu {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 .user-role {
   font-size: 1em;
   font-weight: bold;
@@ -28,11 +51,14 @@
   border-radius: 5px;
   margin-bottom: 20px;
   text-align: center;
+ 
 }
 
 .role-selector ::selection {
   background-color: #680dd1;
 }
+
+
 
 .no-tasks {
   display: flex;

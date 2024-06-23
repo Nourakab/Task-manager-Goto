@@ -7,6 +7,9 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
   const [title, setTitle] = useState(initialTask.title || "");
   const [description, setDescription] = useState(initialTask.description || "");
   const [endDate, setEndDate] = useState(initialTask.endDate || "");
+  const isCreating = !initialTask.id; // Determine if creating a new task
+
+  const today = new Date().toISOString().split("T")[0]; // Define the today variable
 
   useEffect(() => {
     if (initialTask) {
@@ -30,9 +33,6 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
     setDescription("");
     setEndDate("");
   };
-
-  // Get today's date in YYYY-MM-DD format
-  const today = new Date().toISOString().split("T")[0];
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>

@@ -1,66 +1,95 @@
-//Defines the context and provides functions to manage the task state.
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const TaskContext = createContext();
 
 const TaskProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([
+  const initialTasks = [
     // Hardcoded tasks for owners
     {
       id: 1,
-      title: "Task 1",
-      description: "Description for Task 1",
+      title: "Write essay",
+      description: "Write an essay of 1000 words in French.",
       endDate: "2024-07-01",
       status: "Pending",
       userId: 1,
     },
     {
       id: 2,
-      title: "Task 2",
-      description: "Description for Task 2",
+      title: "Implement new feature for user authentication.",
+      description: "Use OAuth and FB SDK",
       endDate: "2024-07-02",
-      status: "Completed",
+      status: "Pending", // Set this to pending initially
       userId: 2,
     },
     {
       id: 3,
-      title: "Task 3",
-      description: "Description for Task 3",
+      title: "Fix bugs",
+      description: "Fix bug in payment processing module.",
       endDate: "2024-07-03",
       status: "Pending",
       userId: 3,
     },
-  ]);
+    {
+      id: 4,
+      title: "Code review",
+      description: "Merge pull requests on GIT.",
+      endDate: "2024-06-03",
+      status: "Pending",
+      userId: 2,
+    },
+    {
+      id: 5,
+      title: "Check database",
+      description: "Optimize database queries for performance.",
+      endDate: "2024-05-05",
+      status: "Pending",
+      userId: 3,
+    },
+  ];
+
+  const [tasks, setTasks] = useState(initialTasks);
   const [user, setUser] = useState(null); // Initially, no user is logged in
 
   const users = [
     {
+      userId: 0,
+      name: import.meta.env.VITE_USER_0_NAME,
+      role: import.meta.env.VITE_USER_0_ROLE,
+      email: import.meta.env.VITE_USER_0_EMAIL,
+      password: import.meta.env.VITE_USER_0_PASSWORD,
+      avatar: import.meta.env.VITE_USER_0_AVATAR,
+    },
+    {
       userId: 1,
-      name: "Owner 1",
-      role: "Owner",
-      email: "owner1@example.com",
-      password: "OwnerPass1!",
+      name: import.meta.env.VITE_USER_1_NAME,
+      role: import.meta.env.VITE_USER_1_ROLE,
+      email: import.meta.env.VITE_USER_1_EMAIL,
+      password: import.meta.env.VITE_USER_1_PASSWORD,
+      avatar: import.meta.env.VITE_USER_1_AVATAR,
     },
     {
       userId: 2,
-      name: "Owner 2",
-      role: "Owner",
-      email: "owner2@example.com",
-      password: "OwnerPass2!",
+      name: import.meta.env.VITE_USER_2_NAME,
+      role: import.meta.env.VITE_USER_2_ROLE,
+      email: import.meta.env.VITE_USER_2_EMAIL,
+      password: import.meta.env.VITE_USER_2_PASSWORD,
+      avatar: import.meta.env.VITE_USER_2_AVATAR,
     },
     {
       userId: 3,
-      name: "Owner 3",
-      role: "Owner",
-      email: "owner3@example.com",
-      password: "OwnerPass3!",
+      name: import.meta.env.VITE_USER_3_NAME,
+      role: import.meta.env.VITE_USER_3_ROLE,
+      email: import.meta.env.VITE_USER_3_EMAIL,
+      password: import.meta.env.VITE_USER_3_PASSWORD,
+      avatar: import.meta.env.VITE_USER_3_AVATAR,
     },
     {
       userId: 4,
-      name: "Admin User",
-      role: "Admin",
-      email: "admin@example.com",
-      password: "AdminPass1234&",
+      name: import.meta.env.VITE_USER_4_NAME,
+      role: import.meta.env.VITE_USER_4_ROLE,
+      email: import.meta.env.VITE_USER_4_EMAIL,
+      password: import.meta.env.VITE_USER_4_PASSWORD,
+      avatar: import.meta.env.VITE_USER_4_AVATAR,
     },
   ];
 
@@ -79,6 +108,17 @@ const TaskProvider = ({ children }) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
+  //Check for overdue tasks
+  const updateTaskStatus = (tasks) => {
+    const today = new Date().toISOString().split("T")[0];
+    return tasks.map((task) => {
+      if (task.status === "Pending" && task.endDate < today) {
+        return { ...task, status: "Overdue" };
+      }
+      return task;
+    });
+  };
+
   const canManageTask = (task) => {
     if (user.role === "Admin") return true;
     if (user.role === "Owner" && task.userId === user.userId) return true;
@@ -88,6 +128,10 @@ const TaskProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
   };
+
+  useEffect(() => {
+    setTasks((prevTasks) => updateTaskStatus(prevTasks));
+  }, []);
 
   return (
     <TaskContext.Provider
