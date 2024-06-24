@@ -22,7 +22,7 @@
   
   .login-card-left {
     padding: 40px;
-    background: url('../assets/images/background.jpg') no-repeat center center;
+    background: url('../../assets/images/background.jpg') no-repeat center center;
     background-size: cover; /* Adjusted to use the background image */
     color: white;
     flex: 1;

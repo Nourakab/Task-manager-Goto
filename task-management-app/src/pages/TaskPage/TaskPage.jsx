@@ -1,6 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { TaskContext } from "../../context/TaskContext";
-import TaskList from "../../components/TaskList";
 import TaskForm from "../../components/TaskForm";
 import TaskCard from "../../components/TaskCard";
 import Modal from "../../components/Modal/Modal";
