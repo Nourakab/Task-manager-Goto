@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Box, Avatar } from "@mui/material";
+import { Avatar } from "@mui/material";
+import Calendar from "react-calendar";
+import "./UserProfile.css";
+import TaskCalendar from "./TaskCalendar";
 
 const UserProfile = ({
   user,
@@ -10,6 +13,7 @@ const UserProfile = ({
   handleRoleChange,
   handleRoleSubmit,
   errorMessage,
+  tasks,
 }) => {
   const [selectedRole, setSelectedRole] = useState(role);
 
@@ -20,32 +24,21 @@ const UserProfile = ({
 
   return (
     <div className="right-section">
-      <Box
-        padding={4}
-        borderRadius={2}
-        bgcolor="#f5f5f5"
-        className="avatar-container"
-      >
+      <div className="avatar-container">
         <Avatar
           alt={user.name}
           src={user.avatar}
           sx={{ width: 100, height: 100, marginBottom: 2 }}
         />
-        <div>{user.name}</div>
+        <h2>{user.name}</h2>
         <div>Role: {user.role}</div>
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        marginTop={4}
-      >
+      </div>
+      <div className="role-change">
         <select
           size="small"
           value={selectedRole}
           onChange={onRoleChange}
           className="role-dropdown"
-          style={{ width: "200px", marginTop: "1rem" }}
         >
           <option value="Owner">Owner</option>
           <option value="Admin">Admin</option>
@@ -57,16 +50,15 @@ const UserProfile = ({
             value={adminPassword}
             onChange={(e) => setAdminPassword(e.target.value)}
             placeholder="Password"
-            style={{ width: "200px", marginTop: "1rem" }}
+            className="admin-password-input"
           />
         )}
-        <button onClick={handleRoleSubmit} style={{ marginTop: "2rem" }}>
-          Change Role
-        </button>
-        {errorMessage && (
-          <div style={{ marginTop: "1rem" }}>{errorMessage}</div>
-        )}
-      </Box>
+        {errorMessage && <div className="error">{errorMessage}</div>}
+        <button onClick={handleRoleSubmit}>Change Role</button>
+      </div>
+      <div className="calendar-section">
+        <TaskCalendar tasks={tasks} />
+      </div>
     </div>
   );
 };

@@ -13,13 +13,11 @@
   color: transparent;
 }
 
-
 body, html {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Afacad', sans-serif; 
   overflow: scroll;
  
 }
@@ -27,8 +25,6 @@ body, html {
 body {
  
   background: linear-gradient(135deg, #b40dd1, #680dd1 );
- 
-  
   
 }
 

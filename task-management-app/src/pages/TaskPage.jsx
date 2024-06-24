@@ -168,6 +168,7 @@ const TaskPage = () => {
         handleRoleChange={handleRoleChange}
         handleRoleSubmit={handleRoleSubmit}
         errorMessage={errorMessage}
+        tasks={tasks}
       />
       {showForm && (
         <Modal show={showForm} onClose={() => setShowForm(false)}>

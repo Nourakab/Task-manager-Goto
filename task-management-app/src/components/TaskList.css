@@ -9,11 +9,22 @@
   border: 1px solid #ccc; /* Add border to the card */
   border-radius: 12px;
   padding: 10px;
-  margin-bottom: 10px;
   background-color: #fff; /* Ensure background is white */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 280px; /* Set a fixed height */
+  justify-content: space-between;
+  margin:10px;
+
+  overflow-wrap: break-word; /* Ensure text wraps within the card */
+  align-items: center;
+
 }
-  
+
+.task-card-content {
+  flex-grow: 1;
+}
+
 
   .task-card input,
 .task-card textarea {
@@ -27,19 +38,25 @@
   
   .task-card h3 {
     margin-top: 0;
-    font-size: 1.5em; /* Change font size here */
+    font-size: 1.5em; 
   }
   
-  .task-card p {
-    margin: 5px 0;
-    flex-grow: 1; /* Ensure the content grows to take available space */
 
-  }
+  .task-card h2,
+.task-card p,
+.task-card div {
+  margin-bottom: 10px;
+}
 
   .task-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 10px; /* Add space between the buttons */
+    margin-top: 15px;
+    
+
   }
+  
   
   .task-status {
     display: flex;
@@ -57,22 +74,64 @@
     color: green;
   }
   
-  .task-actions {
-    display: flex;
+  /* Media Queries */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .task-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .task-card {
+    width: 100%;
+    height: auto; /* Allow the card to adjust height */
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .task-list {
+    grid-template-columns: 1fr; /* 1 column */
     gap: 10px;
+    padding: 10px;
   }
-  
-  .task-action-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
+
+  .task-card {
+    width: 100%;
+    height: auto; /* Allow the card to adjust height */
+  }
+
+  .task-footer {
+    flex-direction: column; /* Stack the buttons vertically */
+    gap: 5px; /* Reduce space between buttons */
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .task-card {
+    padding: 8px;
     border-radius: 8px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
   }
-  
-  .task-action-button:hover {
-    background-color: #0056b3;
+
+  .task-footer {
+    flex-direction: column; /* Stack the buttons vertically */
+    gap: 5px; /* Reduce space between buttons */
   }
-  
+}
+
+/* Laptops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .task-list {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .task-card {
+    width: 100%;
+    height: auto; /* Allow the card to adjust height */
+  }
+}

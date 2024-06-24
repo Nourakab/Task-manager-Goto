@@ -5,6 +5,7 @@
   
 }
 
+
 .task-form input,
 .task-form textarea,
 .task-form button {
@@ -68,3 +69,64 @@
   cursor: pointer;
 }
 
+/* Media Queries */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .task-form button {
+    padding: 10px 50px;
+  }
+  
+  .date-picker-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .task-form button {
+    padding: 10px 30px;
+  }
+  
+  .date-picker-wrapper {
+    gap: 5px;
+    padding: 5px;
+  }
+  
+  .task-form input,
+  .task-form textarea {
+    font-size: 1em;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .task-form button {
+    padding: 10px 20px;
+  }
+  
+  .task-form input,
+  .task-form textarea {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+  
+  .date-picker-wrapper {
+    gap: 5px;
+    padding: 5px;
+  }
+}
+
+/* Laptops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .task-form button {
+    padding: 10px 70px;
+  }
+  
+  .task-form input,
+  .task-form textarea {
+    padding: 10px;
+    font-size: 1.1em;
+  }
+}

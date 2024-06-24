@@ -21,7 +21,7 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted with values:", { title, description, endDate });
+
     onSubmit({
       ...initialTask,
       title,
@@ -40,7 +40,6 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
         value={title}
         onChange={(e) => {
           setTitle(e.target.value);
-          console.log("Title updated:", e.target.value);
         }}
         placeholder="Title"
         required
@@ -49,7 +48,6 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
         value={description}
         onChange={(e) => {
           setDescription(e.target.value);
-          console.log("Description updated:", e.target.value);
         }}
         placeholder="Description"
         required
@@ -60,7 +58,6 @@ const TaskForm = ({ onSubmit, initialTask = {} }) => {
           value={endDate}
           onChange={(e) => {
             setEndDate(e.target.value);
-            console.log("End Date updated:", e.target.value);
           }}
           min={today}
           placeholder="End Date"

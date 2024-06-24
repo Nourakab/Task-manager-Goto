@@ -105,7 +105,6 @@ Tasks have predefined statuses such as "Pending" and "Overdue".
 
 The current implementation does not include persistent storage, so tasks will not be saved after a page refresh.
 The application does not support multiple languages.
-The UI is designed primarily for desktop view and may not be fully responsive on mobile devices.
 
 # Code Structure and Design Choices
 

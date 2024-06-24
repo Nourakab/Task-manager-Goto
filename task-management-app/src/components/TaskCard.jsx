@@ -55,24 +55,30 @@ const TaskCard = ({
         </>
       ) : (
         <>
-          <div>{task.title}</div>
-          <div>{task.description}</div>
-          <div>End Date: {task.endDate}</div>
-          <div className={task.status === "Overdue" ? "status-overdue" : ""}>
-            Status:{" "}
-            {task.status === "Pending"
-              ? "⏳"
-              : task.status === "Overdue"
-              ? "Overdue❗"
-              : "✔️"}
+          <div className="task-card-content">
+            <h2>{task.title}</h2>
+            <div>{task.description}</div>
+            <div>End Date: {task.endDate}</div>
+            <div>
+              Status:{" "}
+              {task.status === "Pending" ? (
+                "⏳"
+              ) : task.status === "Overdue" ? (
+                <span style={{ color: "red" }}>Overdue❗</span>
+              ) : (
+                "✔️"
+              )}
+            </div>
           </div>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
-          <button onClick={() => handleDeleteClick(task.id)}>Delete</button>
-          {task.status === "Pending" && (
-            <button onClick={() => handleMarkAsCompleted(task)}>
-              Mark as Completed
-            </button>
-          )}
+          <div className="task-footer">
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <button onClick={() => handleDeleteClick(task.id)}>Delete</button>
+            {task.status === "Pending" && (
+              <button onClick={() => handleMarkAsCompleted(task)}>
+                Mark as Completed
+              </button>
+            )}
+          </div>
         </>
       )}
     </div>

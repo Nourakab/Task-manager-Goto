@@ -1,0 +1,133 @@
+.calendar-container {
+  position: relative;
+}
+
+.task-calendar {
+  width: 100%;
+  margin: 20px auto;
+  max-width: 600px;
+  position: relative;
+}
+
+.react-calendar {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+}
+
+.react-calendar__navigation {
+  margin-left: 10px;
+}
+
+.react-calendar__tile {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.react-calendar__tile--active {
+  background-color: #680dd1;
+  color: white;
+}
+
+.react-calendar__tile--now {
+  background-color: transparent;
+  position: relative;
+}
+
+.react-calendar__tile--now::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #680dd1;
+}
+
+.react-calendar__tile--now > abbr {
+  color: #680dd1;
+}
+
+.tile-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.task-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 2px;
+}
+
+.task-indicator.pending {
+  background-color: #f58d16;
+}
+
+.task-indicator.completed {
+  background-color: #28a745;
+}
+
+.task-indicator.overdue {
+  background-color: #dc3545;
+}
+
+.task-tooltip-item {
+  margin: 5px 0;
+}
+
+.task-tooltip-item.pending {
+  color: #f58d16;
+}
+
+.task-tooltip-item.completed {
+  color: #28a745;
+}
+
+.task-tooltip-item.overdue {
+  color: #dc3545;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 1440px) {
+  .task-calendar {
+    max-width: 500px;
+  }
+
+  .react-calendar {
+    padding: 4px;
+  }
+
+  .react-calendar__tile {
+    padding: 8px;
+  }
+
+  .react-calendar__tile--now::before {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .task-calendar {
+    max-width: 100%;
+  }
+
+  .react-calendar {
+    padding: 3px;
+  }
+
+  .react-calendar__tile {
+    padding: 6px;
+  }
+
+  .react-calendar__tile--now::before {
+    width: 20px;
+    height: 20px;
+  }
+}

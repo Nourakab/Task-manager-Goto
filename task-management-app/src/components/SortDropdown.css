@@ -1,16 +1,90 @@
+
+.sort-dropdown-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  position: relative;
+  background: linear-gradient(135deg, #ca35e4, #6d0edb );
+  width:35%;
+  height:180px
+}
+
 .sort-dropdown {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+  width: 300px;
+  position: relative;
+
+ 
+}
+
+.sort-dropdown select {
+  appearance: none;
+  background-color: #e6a5f1;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  width: 100%;
+  font-size: 16px;
+  color: #333;
+}
+
+.sort-dropdown select:focus {
+  outline: none;
+  border: 1px solid #680dd1;
+}
+
+.sort-dropdown::after {
+  content: "▼";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #333;
+  pointer-events: none;
+}
+
+.sort-dropdown-option {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.sort-dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+/* Small Mobile */
+@media (max-width: 480px) {
+  .sort-dropdown-container {
+    width: 90%;
+    height: auto; /* Adjust height for better display */
   }
-  
-  .sort-menu {
-    background-color: #fff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  .sort-dropdown select {
+    font-size: 12px;
+    padding: 8px 15px;
   }
-  
-  .sort-dropdown {
-    width: 100%;
+
+  .sort-dropdown::after {
+    font-size: 12px;
   }
-  
+}
+
+/* Laptops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .sort-dropdown-container {
+    width: 40%;
+    height: auto; /* Adjust height for better display */
+  }
+
+  .sort-dropdown select {
+    font-size: 16px;
+  }
+
+  .sort-dropdown::after {
+    font-size: 16px;
+  }
+}
