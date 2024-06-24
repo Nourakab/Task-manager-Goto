@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import { TaskContext } from "./context/TaskContext";
-import TaskPage from "./pages/TaskPage";
+import TaskPage from "./pages/TaskPage/TaskPage";
 
 function App() {
   const { user } = useContext(TaskContext);

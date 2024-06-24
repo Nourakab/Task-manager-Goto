@@ -1,13 +1,13 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { TaskContext } from "../context/TaskContext";
-import TaskList from "../components/TaskList";
-import TaskForm from "../components/TaskForm";
-import TaskCard from "../components/TaskCard";
-import Modal from "../components/Modal";
-import SearchBar from "../components/SearchBar";
-import SortDropdown from "../components/SortDropdown";
-import UserProfile from "../components/UserProfile";
-import noTaskImage from "../assets/images/noTask.jpg";
+import { TaskContext } from "../../context/TaskContext";
+import TaskList from "../../components/TaskList";
+import TaskForm from "../../components/TaskForm";
+import TaskCard from "../../components/TaskCard";
+import Modal from "../../components/Modal/Modal";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import SortDropdown from "../../components/SortDropdown/SortDropdown";
+import UserProfile from "../../components/UserProfile";
+import noTaskImage from "../../assets/images/noTask.jpg";
 import "./TaskPage.css";
 
 const TaskPage = () => {

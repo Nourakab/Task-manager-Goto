@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import Calendar from "react-calendar";
 import "./UserProfile.css";
-import TaskCalendar from "./TaskCalendar";
+import TaskCalendar from "../TaskCalendar/TaskCalendar";
 
 const UserProfile = ({
   user,
